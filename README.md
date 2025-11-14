@@ -32,7 +32,7 @@ By providing an MCP server with reliable date tools, your AI assistant (whether 
 This will install `date-mcp` into `$HOME/.local/bin`
 
 ```zsh
-uv tool install ~/source/date-mcp
+uv tool install git+https://github.com/GaryRogers/date-mcp
 ```
 
 ## Using with Visual Studio Code
