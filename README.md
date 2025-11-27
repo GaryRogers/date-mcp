@@ -48,7 +48,7 @@ uv tool install git+https://github.com/GaryRogers/date-mcp
 Edit you `mcp.json` file
 
 - In Visual Studio Code Open the Command Palate (View | Command Palate)
-  - Or use `ctrl-shit-p` on Windows or `command-shift-p` on MacOS
+  - Or use `ctrl-shift-p` on Windows or `command-shift-p` on MacOS
 - Type `MCP: Open User Configuration`
 
 Example `mcp.json` (basic):
