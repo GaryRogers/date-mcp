@@ -83,8 +83,8 @@ def get_timezone_from_location(location: str) -> str:
         f'    }}\n'
         f'  }}\n'
         f'}}\n\n'
-        f"For example, to add Berlin: DATE_MCP_LOCATIONS=\"Berlin=Europe/Berlin\"\n"
-        f"For multiple locations: DATE_MCP_LOCATIONS=\"Berlin=Europe/Berlin,Sydney=Australia/Sydney\""
+        f"For example, to add Vienna: DATE_MCP_LOCATIONS=\"Vienna=Europe/Vienna\"\n"
+        f"For multiple locations: DATE_MCP_LOCATIONS=\"Vienna=Europe/Vienna,Sydney=Australia/Sydney\""
     )
     raise ValueError(error_msg)
 
