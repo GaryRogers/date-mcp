@@ -8,9 +8,10 @@ import asyncio
 import os
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
-from mcp.server import Server
+from mcp.server import Server, NotificationOptions
+from mcp.server.models import InitializationOptions
 from mcp.server.stdio import stdio_server
-from mcp.types import Tool, TextContent
+from mcp.types import Tool, TextContent, Prompt, GetPromptResult, PromptMessage
 
 
 # Base location to timezone mapping (capitals and major financial centers)
@@ -39,6 +40,13 @@ LOCATION_MAP = {
     "Lagos": "Africa/Lagos",
     "Nairobi": "Africa/Nairobi",
 }
+
+INSTRUCTIONS = """
+This server provides tools for retrieving date and time information.
+- Use 'get_day_name' to find out the day of the week.
+- Use 'current_time_location' for specific city times.
+- Always prefer ISO 8601 format for dates.
+"""
 
 # Load environment variable overrides
 _env_locations = os.getenv("DATE_MCP_LOCATIONS", "")
@@ -198,11 +206,54 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         raise ValueError(f"Unknown tool: {name}")
 
 
+@app.list_prompts()
+async def list_prompts() -> list[Prompt]:
+    """List available prompts."""
+    return [
+        Prompt(
+            name="date-summary",
+            description="Get a summary of the current date and time",
+            arguments=[]
+        )
+    ]
+
+
+@app.get_prompt()
+async def get_prompt(name: str, arguments: dict[str, str] | None) -> GetPromptResult:
+    """Handle prompt requests."""
+    if name == "date-summary":
+        return GetPromptResult(
+            description="Date Summary",
+            messages=[
+                PromptMessage(
+                    role="user",
+                    content=TextContent(
+                        type="text",
+                        text="Please provide a summary of the current date, time in UTC, and day of the week."
+                    )
+                )
+            ]
+        )
+    raise ValueError(f"Unknown prompt: {name}")
+
+
 def main():
     """Initialize and run the MCP server."""
     async def run():
         async with stdio_server() as (read_stream, write_stream):
-            await app.run(read_stream, write_stream, app.create_initialization_options())
+            await app.run(
+                read_stream,
+                write_stream,
+                InitializationOptions(
+                    server_name="date-mcp",
+                    server_version="0.3.0",
+                    capabilities=app.get_capabilities(
+                        notification_options=NotificationOptions(),
+                        experimental_capabilities={},
+                    ),
+                    instructions=INSTRUCTIONS
+                )
+            )
     
     asyncio.run(run())
 

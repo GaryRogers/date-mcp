@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2025-11-30
+
+### Added
+
+- **System Instructions**: Added global instructions to the server to guide models on tool usage and preferences (e.g., ISO 8601 format).
+- **Prompts Support**: Implemented `list_prompts` and `get_prompt` capabilities.
+- **Date Summary Prompt**: Added a `date-summary` prompt that requests a summary of the current date, UTC time, and day of the week.
+
 ## [0.2.0] - 2025-11-27
 
 ### Added
