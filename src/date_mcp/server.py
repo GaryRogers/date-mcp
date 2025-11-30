@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from mcp.server import Server, NotificationOptions
 from mcp.server.models import InitializationOptions
 from mcp.server.stdio import stdio_server
-from mcp.types import Tool, TextContent, Prompt, PromptArgument, GetPromptResult, PromptMessage
+from mcp.types import Tool, TextContent, Prompt, GetPromptResult, PromptMessage
 
 
 # Base location to timezone mapping (capitals and major financial centers)
